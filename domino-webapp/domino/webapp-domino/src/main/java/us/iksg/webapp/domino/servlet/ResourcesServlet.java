@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tika.Tika;
 
 import com.ibm.commons.util.PathUtil;
+import com.ibm.commons.util.StringUtil;
 import com.ibm.commons.util.io.StreamUtil;
 
 /**
@@ -51,6 +52,12 @@ public class ResourcesServlet extends HttpServlet {
 		if(prefix != null && !prefix.isEmpty()) {
 			resPath = PathUtil.concat(prefix, resPath, '/');
 		}
+
+		if(StringUtil.isEmpty(resPath)) {
+			resp.sendRedirect(req.getContextPath() + "/");
+			return;
+		}
+
 		if("/".equals(resPath)) { //$NON-NLS-1$
 			resPath = "/index.html"; //$NON-NLS-1$
 		}
