@@ -1,0 +1,29 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<display-name>Example Web App</display-name>
+
+	<servlet>
+		<servlet-name>ApiServlet</servlet-name>
+		<servlet-class>us.iksg.webapp.domino.jaxrs.RootServlet</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>us.iksg.webapp.domino.jaxrs.DominoWebConfig</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ApiServlet</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ResourcesServlet</servlet-name>
+		<servlet-class>us.iksg.webapp.domino.servlet.ResourcesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ResourcesServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+</web-app>

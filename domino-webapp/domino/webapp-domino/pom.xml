@@ -1,0 +1,129 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>us.iksg</groupId>
+		<artifactId>domino-webapp</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+    	<relativePath>../..</relativePath>
+	</parent>
+	<artifactId>webapp-domino</artifactId>
+	<packaging>bundle</packaging>
+	<name>Example Domino HTTP Application</name>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>webapp-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>webapp-api-jaxrs</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>webapp-webui</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- JAX-RS provider support -->
+		<dependency>
+			<groupId>jakarta.json.bind</groupId>
+			<artifactId>jakarta.json.bind-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>yasson</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+		</dependency>
+		
+		<!-- Resource serving -->
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-core</artifactId>
+			<version>1.23</version>
+		</dependency>
+		
+		<!-- Domino-compatible implementations -->
+		<dependency>
+			<groupId>org.apache.wink</groupId>
+			<artifactId>wink-server</artifactId>
+			<version>1.1-incubating</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-j2ee_1.4_spec</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm.sbt</groupId>
+			<artifactId>com.ibm.commons</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<supportedProjectTypes>
+						<supportedProjectType>jar</supportedProjectType>
+						<supportedProjectType>bundle</supportedProjectType>
+					</supportedProjectTypes>
+					<instructions>
+						<Bundle-SymbolicName>${project.groupId}.webapp.domino;singleton:=true</Bundle-SymbolicName>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
+						<Export-Package/>
+						<Require-Bundle>
+							org.apache.wink,
+							com.ibm.domino.xsp.adapter,
+							com.ibm.domino.napi,
+							com.ibm.commons,
+							com.ibm.commons.xml
+						</Require-Bundle>
+						<Import-Package>
+							javax.servlet,
+							javax.servlet.http,
+							lotus.domino
+						</Import-Package>
+						<Embed-Dependency>*;scope=compile</Embed-Dependency>
+						<Embed-Transitive>true</Embed-Transitive>
+						<Embed-Directory>WebContent/WEB-INF/lib</Embed-Directory>
+						<_snapshot>${osgi.qualifier}</_snapshot>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>notes-platform-repository</id>
+			<activation>
+				<property>
+					<name>notes-platform</name>
+				</property>
+			</activation>
+			
+			<dependencies>
+				<dependency>
+					<groupId>com.hcl.xsp.p2</groupId>
+					<artifactId>com.ibm.domino.xsp.adapter</artifactId>
+					<version>[9.0.1,)</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>

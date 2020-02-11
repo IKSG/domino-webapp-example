@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>us.iksg</groupId>
+		<artifactId>domino-webapp</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../..</relativePath>
+	</parent>
+	<artifactId>webapp-core</artifactId>
+	<name>Example Webapp Shared Code</name>
+	
+	<properties>
+		<nsfodp.version>3.0.0-SNAPSHOT</nsfodp.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>jakarta.json.bind</groupId>
+			<artifactId>jakarta.json.bind-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<profiles>
+		<profile>
+			<id>notes-platform-repository</id>
+			<activation>
+				<property>
+					<name>notes-platform</name>
+				</property>
+			</activation>
+
+			<dependencies>
+				<dependency>
+					<groupId>com.hcl.xsp.p2</groupId>
+					<artifactId>com.ibm.notes.java.api.win32.linux</artifactId>
+					<classifier>Notes</classifier>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>

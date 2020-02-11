@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>us.iksg</groupId>
+		<artifactId>domino-webapp</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../..</relativePath>
+	</parent>
+	<artifactId>webapp-dist-domino</artifactId>
+	<packaging>pom</packaging>
+	<name>Example Webapp Domino Distribution</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.reficio</groupId>
+				<artifactId>p2-maven-plugin</artifactId>
+				<version>1.3.0</version>
+				<executions>
+					<execution>
+						<id>generate-site</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<configuration>
+							<featureDefinitions>
+								<feature>
+									<id>us.iksg.webapp.feature</id>
+									<version>${project.version}</version>
+									<label>Example Domino Webapp</label>
+									<providerName>Jesse Gallagher</providerName>
+									<description>Example webapp application running on Domino</description>
+									<artifacts>
+										<artifact>
+											<id>${project.groupId}:webapp-domino:${project.version}</id>
+											<transitive>false</transitive>
+										</artifact>
+									</artifacts>
+								</feature>
+							</featureDefinitions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.darwino</groupId>
+				<artifactId>p2sitexml-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>generate-site-xml</goal>
+						</goals>
+						<configuration>
+							<category>Example Webapp</category>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

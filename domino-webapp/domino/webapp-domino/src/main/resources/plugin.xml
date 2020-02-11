@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="com.ibm.pvc.webcontainer.application">
+		<contextRoot>/exampleapp</contextRoot>
+		<contentLocation>WebContent</contentLocation>
+	</extension>
+	
+	<extension point="com.ibm.commons.Extension">
+		<service type="com.ibm.xsp.adapter.serviceFactory" class="us.iksg.webapp.domino.WebappInitializerFactory"/>
+	</extension>
+</plugin>

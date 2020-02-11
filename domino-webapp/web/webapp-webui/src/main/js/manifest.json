@@ -1,0 +1,15 @@
+{
+	"name": "Example Webapp",
+	"short_name": "Webapp",
+	"start_url": "/exampleapp/",
+	"display": "standalone",
+	"icons": [
+		{
+			"src": "assets/icon/icon.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"background_color": "#16161d",
+	"theme_color": "#16161d"
+}
